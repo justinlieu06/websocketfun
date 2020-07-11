@@ -18,7 +18,13 @@ var io = socket(server);
 io.on('connection', function(socket){
   console.log('Made socket connection!', socket.id);
 
+  //emiting as in sends to everyone including yourself
   socket.on('chat', function(data){
     io.sockets.emit('chat', data);
+  });
+
+  //broadcasting as in sends to everyone but yourself
+  socket.on('typing', function(data){
+    socket.broadcast.emit('typing', data);
   });
 });
